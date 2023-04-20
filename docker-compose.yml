@@ -1,0 +1,26 @@
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092"
+    environment:
+      DOCKER_API_VERSION: 1.22
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.167
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "Topic1:1:1,Topic2:1:1:compact"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  kafka-dev:
+    build: .
+    volumes:
+      - .:/root/workspace
+      - vs-server:/root/.vscode-server/extensions
+volumes:
+  vs-server: {}
