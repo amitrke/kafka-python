@@ -1,6 +1,5 @@
 from kafka import KafkaProducer
 from logging import log
-import json
 
 producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
